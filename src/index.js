@@ -1,3 +1,7 @@
-const msg = [...'Hello!'];
-console.log(msg.join('.'));
+const DeviceMotion = class {
+  static _test() {
+    console.log('test');
+  }
+};
+export default DeviceMotion;
 
