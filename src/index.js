@@ -5,8 +5,32 @@ export default class DeviceMotions {
     this._callback = function() {};
   }
 
-  static _test() {
-    console.log('test');
+  static supported() {
+    return (
+      Boolean(window.DeviceOrientationEvent)
+      && Boolean(window.DeviceMotionEvent)
+    );
+  }
+
+  static permissionRequired() {
+    console.dir(window.DeviceOrientationEvent)
+    return (
+      DeviceMotions.supported()
+      && (
+        typeof window.DeviceOrientationEvent.requestPermission === 'function'
+        && typeof window.DeviceMotionEvent.requestPermission === 'function'
+      )
+    );
+  }
+
+  static async requestPermission() {
+    if(!DeviceMotions.permissionRequired()) return;
+    const orientationState = await window.DeviceOrientationEvent.requestPermission();
+    const motionState = await window.DeviceMotionEvent.requestPermission();
+    return {
+      orientationGranted: orientationState === 'granted',
+      motionGranted: motionState === 'granted',
+    };
   }
 
   /* Private */
@@ -41,15 +65,22 @@ export default class DeviceMotions {
 
   /* Public */
   register(callback) {
+    if(!DeviceMotions.supported()) return this;
     this._callback = callback;
-    window.addEventListener('deviceorientation', this._orientationHandler);
-    window.addEventListener('devicemotion', this._motionHandler);
+    window.addEventListener('deviceorientation', function(e) {
+      this._orientationHandler(e)
+    }.bind(this));
+    window.addEventListener('devicemotion', function(e) {
+      this._motionHandler(e);
+    }.bind(this));
+    console.log('Registered');
     return this;
   }
 
   unregister() {
     window.removeEventListener('deviceorientation', this._orientationHandler);
     window.removeEventListener('devicemotion', this._motionHandler);
+    console.log('Unregistered');
     return this;
   }
 };

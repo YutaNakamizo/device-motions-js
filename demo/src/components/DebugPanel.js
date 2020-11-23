@@ -16,16 +16,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const DebugPanel = ({
+  children,
   ...props
 }) => {
   const classes = useStyles();
   return (
     <Paper
       className={classes.root}
+      {...props}
     >
       <Box
         m={2}
       >
+        {children}
       </Box>
     </Paper>
   );
