@@ -1,12 +1,14 @@
 const path = require('path');
+const ESModulesWebpackPlugin = require('esmodules-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, '../build'),
     filename: 'index.js',
+    libraryTarget: 'commonjs-module',
   },
-  module: {
+  /*module: {
     rules: [
       {
         test: /\.(c|m)?jsx?$/,
@@ -15,7 +17,14 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              '@babel/preset-env',
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    esmodules: true,
+                  },
+                },
+              ],
             ],
             plugins: [
               [
@@ -29,6 +38,6 @@ module.exports = {
         },
       },
     ],
-  },
+  },*/
 };
 

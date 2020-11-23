@@ -155,7 +155,17 @@ module.exports = function (webpackEnv) {
     return loaders;
   };
 
-  return {
+  /*const libConf = require('webpack-merge')(
+    require(path.join(__dirname, `../../config/webpack.config.${isEnvDevelopment ? 'dev' : 'pro'}.js`)),
+    {
+      output: {
+        path: path.join(__dirname, '../src'),
+        filename: 'device-motions.js',
+      },
+    }
+  );*/
+
+  return /*[libConf, */{
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
@@ -731,5 +741,5 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
-  };
+  }/*]*/;
 };
