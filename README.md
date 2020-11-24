@@ -1,4 +1,4 @@
-# device-motionsssssss-js
+# device-motions-js
 
 A JavaScript library to get device motion on web browser
 
