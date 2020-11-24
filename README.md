@@ -1,6 +1,6 @@
 # device-motion.js
 
-A JavaScript library to get device motion for xR experience on web browser
+A JavaScript library to get device motion for on web browser
 
 
 ## Quick Start
