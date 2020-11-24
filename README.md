@@ -1,6 +1,6 @@
-# device-motion.js
+# device-motionsssssss-js
 
-A JavaScript library to get device motion for on web browser
+A JavaScript library to get device motion on web browser
 
 
 ## Quick Start
