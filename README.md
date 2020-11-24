@@ -124,7 +124,7 @@ MIT
 
 ## Author and Contcts
 
-Yuta NAKAMIZO
-Email: [yuta.nakamizo@ggtk.app](mailto:yuta.nakamizo@ggtk.app)
+Yuta NAKAMIZO  
+Email: [yuta.nakamizo@ggtk.app](mailto:yuta.nakamizo@ggtk.app)  
 Web Site: [https://ggtk.app](https://ggtk.app)
 
