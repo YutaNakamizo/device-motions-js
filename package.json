@@ -1,7 +1,7 @@
 {
   "name": "device-motions-js",
   "version": "1.0.0",
-  "description": "A JavaScript library to get device motion for xR experience on web browser",
+  "description": "A JavaScript library to get device motion on web browser",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,11 +14,12 @@
     "url": "git+https://github.com/YutaNakamizo/device-motions-js.git"
   },
   "keywords": [
-    "xR",
-    "AR",
-    "VR",
-    "MR",
-    "motion"
+    "motion",
+    "orientation",
+    "gyro",
+    "acceleration",
+    "rotation",
+    "position"
   ],
   "author": "Yuta NAKAMIZO",
   "license": "MIT",
