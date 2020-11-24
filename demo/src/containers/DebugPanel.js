@@ -11,26 +11,23 @@ export const DebugPanel = ({
   ...props
 }) => {
   const {
+    deviceMotions,
     supported,
-    orientationGranted,
-    motionGranted,
-    motions,
+    granted,
+    data: {
+      orientation,
+      motion,
+    },
   } = useSelector(state => ({
     ...state.motions,
   }));
 
   const dispatch = useDispatch();
-  const handleOrientationGrantedChanged = orientationGranted => dispatch(motionsAC.handleOrientationGrantedChanged(orientationGranted));
-  const handleMotionGrantedChanged = motionGranted => dispatch(motionsAC.handleMotionGrantedChanged(motionGranted));
+  const handleGrantedChanged = granted => dispatch(motionsAC.handleGrantedChanged(granted));
 
   const requestPermission = () => {
-    DeviceMotions.requestPermission().then(({
-      orientationGranted,
-      motionGranted,
-    }) => {
-      console.log(orientationGranted, motionGranted);
-      handleOrientationGrantedChanged(orientationGranted);
-      handleMotionGrantedChanged(motionGranted);
+    deviceMotions.requestPermission().then(granted => {
+      handleGrantedChanged(granted);
     });
   };
   
@@ -40,18 +37,19 @@ export const DebugPanel = ({
     >
       <div>
         {(
-          supported === undefined
-          || orientationGranted === undefined
-          || motionGranted === undefined
+          supported.orientation === undefined
+          || supported.motion === undefined
+          || granted.orientation === undefined
+          || granted.motion === undefined
         ) ? (
           'Loading...'
         ) : (
           <>
             <div>
-              Supported: {supported}
+              Supported: {String(supported.orientation && supported.motion)}
             </div>
             <div>
-              {(!orientationGranted || !motionGranted) && (
+              {(!granted.orientation || !granted.motion) && (
                 <button
                   onClick={requestPermission}
                 >
@@ -62,11 +60,14 @@ export const DebugPanel = ({
           </>
         )}
       </div>
-      {JSON.stringify(motions, null, 2).slice(1, -1).trim().split('\n').map((row, index) => (
+      {JSON.stringify({
+        orientation,
+        ...motion,
+      }, null, 2).slice(1, -1).trim().split('\n').map((row, index) => (
         <div
           key={index}
         >
-          {row}
+          {row.trim()}
         </div>
       ))}
     </DebugPanelBase>

@@ -1,55 +1,59 @@
 import Action from './Action';
 
 // Actions
-const SUPPORTED_CHANGED = new Action('motions/supported-changed');
-const ORIENTATION_GRANTED_CHANGED = new Action('motions/orientation-granted-changed');
-const MOTION_GRANTED_CHANGED = new Action('motions/motion-granted-changed');
+const INSTANCE_INITIALIZED = new Action('motions/instance-initialized');
+const GRANTED_CHANGED = new Action('motions/granted-changed');
 const MOTIONS_CHANGED = new Action('motions/motions-changed');
 
 // Reducer
 const initialState ={
-  supported: undefined,
-  orientationGranted: undefined,
-  motionGranted: undefined,
-  motions: {
+  deviceMotions: undefined,
+  supported: {
+    orientation: undefined,
+    motion: undefined,
+  },
+  granted: {
+    orientation: undefined,
+    motion: undefined,
+  },
+  data: {
     orientation: {},
-    acceleration: {},
-    accelerationIncludingGravity: {},
-    rotationRate: {},
-    interval: {},
+    motion: {
+      acceleration: {},
+      accelerationIncludingGravity: {},
+      rotationRate: {},
+      interval: undefined,
+    },
   },
 };
 const reducer = (state = initialState, action) => {
   const { type, value } = action;
   switch(type) {
-    case SUPPORTED_CHANGED: {
-      const { supported } = value;
-      return {
-        ...state,
+    case INSTANCE_INITIALIZED: {
+      const { deviceMotions } = value;
+      const {
         supported,
-      };
-    }
-    case ORIENTATION_GRANTED_CHANGED: {
-      const { orientationGranted } = value;
+        granted,
+      } = deviceMotions || initialState;
       return {
         ...state,
-        orientationGranted,
+        deviceMotions,
+        supported,
+        granted,
       };
     }
-    case MOTION_GRANTED_CHANGED: {
-      const { motionGranted } = value;
+    case GRANTED_CHANGED: {
+      const { granted } = value;
       return {
         ...state,
-        motionGranted,
+        granted,
       };
     }
     case MOTIONS_CHANGED: {
       const { motions } = value;
       return {
         ...state,
-        motions,
-        orientationGranted: true,
-        motionGranted: true,
+        data: motions,
       };
     }
     default:
@@ -59,29 +63,20 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 // Action Creators
-export const handleSupoortedChanged = supported => {
+export const handleInstanceInitialized = deviceMotions => {
   return {
-    type: SUPPORTED_CHANGED,
+    type: INSTANCE_INITIALIZED,
     value: {
-      supported,
+      deviceMotions,
     },
   };
 };
 
-export const handleOrientationGrantedChanged = orientationGranted => {
+export const handleGrantedChanged = granted => {
   return {
-    type: ORIENTATION_GRANTED_CHANGED,
+    type: GRANTED_CHANGED,
     value: {
-      orientationGranted,
-    },
-  };
-};
-
-export const handleMotionGrantedChanged = motionGranted => {
-  return {
-    type: MOTION_GRANTED_CHANGED,
-    value: {
-      motionGranted,
+      granted,
     },
   };
 };
