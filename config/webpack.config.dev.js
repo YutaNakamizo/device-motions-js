@@ -9,6 +9,7 @@ module.exports = merge(common, {
   output: {
     path: path.join(__dirname, '../demo/src'),
     filename: 'device-motions.js',
+    libraryTarget: 'commonjs-module',
   },
 });
 
