@@ -1,6 +1,6 @@
 {
-  "name": "device-motions",
-  "version": "0.0.1",
+  "name": "device-motions-js",
+  "version": "1.0.0",
   "description": "A JavaScript library to get device motion for xR experience on web browser",
   "main": "build/index.js",
   "scripts": {
